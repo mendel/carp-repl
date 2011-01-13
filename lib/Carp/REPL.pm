@@ -34,7 +34,7 @@ sub import {
         );
     }
     
-    $SIG{__DIE__}  = \&repl unless $nodie;
+    $SIG{__DIE__}  = sub { goto \&repl unless $^S; } unless $nodie;
     $SIG{__WARN__} = \&repl if $warn;
 
     if ($test) {
